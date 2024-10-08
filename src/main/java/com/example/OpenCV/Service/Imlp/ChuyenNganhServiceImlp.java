@@ -20,9 +20,10 @@ public class ChuyenNganhServiceImlp implements ChuyenNganhService {
     @Autowired
     private KhoaRepository khoaRepository;
 
+
     @Override
-    public List<ChuyenNganh> findAll() {
-        return chuyenNganhRepository.findAll(Sort.by("manganh").descending());
+    public ChuyenNganh findById(String manganh) {
+        return chuyenNganhRepository.findById(manganh).orElse(null);
     }
 
     @Override
@@ -33,8 +34,6 @@ public class ChuyenNganhServiceImlp implements ChuyenNganhService {
 
         Khoa khoa = khoaRepository.findById(request.getMakhoa())
                 .orElseThrow(() -> new NotFoundException("Không tìm thấy mã khoa: " + request.getMakhoa()));
-
-
         chuyenNganh.setKhoa(khoa);
         return chuyenNganhRepository.save(chuyenNganh);
     }
@@ -68,5 +67,10 @@ public class ChuyenNganhServiceImlp implements ChuyenNganhService {
     public ChuyenNganh timKiemMaNganh(String manganh) {
         return chuyenNganhRepository.findById(manganh)
                 .orElse(null);
+    }
+
+    @Override
+    public List<ChuyenNganh> getMonHocByMaKhoa(String makhoa) {
+        return chuyenNganhRepository.findByMakhoa(makhoa);
     }
 }

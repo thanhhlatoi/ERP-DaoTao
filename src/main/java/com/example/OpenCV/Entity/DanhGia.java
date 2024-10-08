@@ -18,17 +18,6 @@ public class DanhGia {
     private float diemtongket;
     private String diemchu;
     private boolean danhgia;
-
-    @JsonIgnore // Bỏ qua khi serialize JSON để tránh lặp lại
-    @OneToOne
-    @JoinColumn(name = "mamonhoc")
-    private MonHoc monHoc;
-
-    @JsonIgnore // Bỏ qua khi serialize JSON để tránh lặp lại
-    @ManyToOne
-    @JoinColumn(name = "masinhvien")
-    private SinhVien sinhVien;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idDiem")
     private Diem diem;

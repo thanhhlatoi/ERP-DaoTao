@@ -1,6 +1,7 @@
 package com.example.OpenCV.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,10 +21,11 @@ public class Diem {
     private float diemgk;
     private float diemck;
     @JsonIgnore // Bỏ qua khi serialize JSON để tránh lặp lại
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "mamonhoc")
     private MonHoc monHoc;
     @ManyToOne
+//    @JsonManagedReference // Để xử lý tuần hoàn JSON với @JsonBackReference trong SinhVien
     @JoinColumn(name = "masinhvien")
     private SinhVien sinhVien;
 

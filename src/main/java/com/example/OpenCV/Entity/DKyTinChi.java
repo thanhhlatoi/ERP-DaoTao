@@ -17,7 +17,5 @@ public class DKyTinChi {
     @OneToOne
     @JoinColumn(name = "mamon")
     private MonHoc monHoc;
-    @OneToOne
-    @JoinColumn(name = "masinhvien")
-    private SinhVien sinhVien;
+
 }

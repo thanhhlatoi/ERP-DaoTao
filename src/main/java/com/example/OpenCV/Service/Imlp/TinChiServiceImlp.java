@@ -35,9 +35,9 @@ public class TinChiServiceImlp implements TinChiService {
 
         MonHoc monHoc = monHocRepository.findById(request.getMamon()).orElseThrow(()-> new NotFoundException("yeu cau nhap ma khoa" +request.getMamon()));
         tinChi.setMonHoc(monHoc);
-        SinhVien sinhVien = sinhVienRepository.findById(request.getMamon()).orElseThrow(()-> new NotFoundException("yeu cau nhap ma khoa" +request.getMasinhvien()));
-        tinChi.setMonHoc(monHoc);
-        tinChi.setSinhVien(sinhVien);
+//        SinhVien sinhVien = sinhVienRepository.findById(request.getMamon()).orElseThrow(()-> new NotFoundException("yeu cau nhap ma khoa" +request.getMasinhvien()));
+//        tinChi.setMonHoc(monHoc);
+//        tinChi.setSinhVien(sinhVien);
         tinChiRepository.save(tinChi);
         return tinChi;
     }
@@ -49,9 +49,9 @@ public class TinChiServiceImlp implements TinChiService {
         MonHoc monhoc = monHocRepository.findById(request.getMamon())
                 .orElseThrow(() -> new NotFoundException("Khoa không tồn tại với mã: " + request.getMamon()));
         dKyTinChi.setMonHoc(monhoc);
-        SinhVien sinhVien = sinhVienRepository.findById(request.getMasinhvien())
-                .orElseThrow(() -> new NotFoundException("Khoa không tồn tại với mã: " + request.getMasinhvien()));
-        dKyTinChi.setSinhVien(sinhVien);
+//        SinhVien sinhVien = sinhVienRepository.findById(request.getMasinhvien())
+//                .orElseThrow(() -> new NotFoundException("Khoa không tồn tại với mã: " + request.getMasinhvien()));
+//        dKyTinChi.setSinhVien(sinhVien);
         tinChiRepository.save(dKyTinChi);
         return dKyTinChi;
     }

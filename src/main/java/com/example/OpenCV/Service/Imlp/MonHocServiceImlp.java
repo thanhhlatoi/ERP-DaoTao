@@ -65,6 +65,7 @@ public class MonHocServiceImlp implements MonHocService {
 
     @Override
     public List<MonHoc> getMonHocByMaNganh(String makhoa) {
+
         return monHocRepository.findByMakhoa(makhoa);
     }
 

@@ -24,5 +24,6 @@ public class ChuyenNganh {
 
     @ManyToOne
     @JoinColumn(name = "makhoa")
+    @JsonBackReference // Chú thích này để không serialize Khoa trong ChuyenNganh
     private Khoa khoa;
 }

@@ -39,8 +39,6 @@ public class DiemController {
         if (diem != null) {
             // Sau khi lưu Diem, tạo và lưu DanhGia dựa trên Diem
             DanhGiaRequest danhGiaRequest = new DanhGiaRequest();
-            danhGiaRequest.setMasinhvien(request.getMasinhvien());
-            danhGiaRequest.setMamonhoc(request.getMamonhoc());
 
             // DanhGia sẽ tự động tính toán điểm tổng kết từ Diem trong service
             DanhGia danhGia = danhGiaService.createDanhGia(danhGiaRequest);

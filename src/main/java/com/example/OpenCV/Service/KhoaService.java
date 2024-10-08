@@ -15,7 +15,12 @@ public interface KhoaService {
     Khoa updatekhoa(String makhoa,KhoaRequest request);
 
     List<Khoa> timKiemTheoTenKhoa(String tenkhoa);
+
     Khoa timKiemMaKhoa(String makhoa);
+
     void deleteKhoa(String makhoa);
+
     Page<Khoa> getPageKhoa(int page, int size);
+
+
 }

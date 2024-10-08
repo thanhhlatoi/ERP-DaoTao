@@ -7,6 +7,7 @@ import com.example.OpenCV.Repository.SinhVienRepository;
 import com.example.OpenCV.Repository.TinChiRepository;
 import com.example.OpenCV.Service.SinhVienService;
 import com.example.OpenCV.model.Request.SinhVienRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -32,10 +33,9 @@ public class SinhVienSercviceImlp implements SinhVienService {
         sinhVien.setMasinhvien(request.getMasinhvien());
         sinhVien.setHoten(request.getHoten());
 
-//        DKyTinChi tinChi = tinChiRepository.findById(request.getMatinchi()).orElseThrow(()-> new NotFoundException("yeu cau nhap ma khoa" +request.getMatinchi()));
-//        sinhVien.setTinchi(tinChi);
 
-        LopHoc lopHoc = lopHocRepository.findById(request.getLopHoc()).orElseThrow(()-> new NotFoundException("yeu cau nhap ma khoa" +request.getLopHoc()));
+
+        LopHoc lopHoc = lopHocRepository.findById(request.getMalop()).orElseThrow(()-> new NotFoundException("yeu cau nhap ma khoa" +request.getMalop()));
         sinhVien.setLopHoc(lopHoc);
 
         sinhVienRepository.save(sinhVien);
@@ -46,18 +46,21 @@ public class SinhVienSercviceImlp implements SinhVienService {
     public SinhVien updateSinhVien(String masinhvien, SinhVienRequest request) {
         SinhVien sinhVien = sinhVienRepository.findById(masinhvien).orElseThrow(() -> new NotFoundException("Không tìm thấy sinh vien với mã"+masinhvien));
         sinhVien.setHoten(request.getHoten());
-        LopHoc lopHoc = lopHocRepository.findById(request.getLopHoc())
-                .orElseThrow(() -> new NotFoundException("Khoa không tồn tại với mã: " + request.getLopHoc()));
+
+        LopHoc lopHoc = lopHocRepository.findById(request.getMalop())
+                .orElseThrow(() -> new NotFoundException("Khoa không tồn tại với mã: " + request.getMalop()));
         sinhVien.setLopHoc(lopHoc);
+
+
         sinhVienRepository.save(sinhVien);
         return sinhVien;
     }
 
-    @Override
-    public SinhVien getSinhVienWithDiem(String masinhvien) {
-        return sinhVienRepository.findSinhVienWithDiem(masinhvien)
-                .orElseThrow(() -> new RuntimeException("Sinh viên không tồn tại"));
-    }
+//    @Override
+//    public SinhVien getSinhVien(String masinhvien) {
+//        return sinhVienRepository.findSinhVienWithDiem(masinhvien)
+//                .orElseThrow(() -> new RuntimeException("Sinh viên không tồn tại"));
+//    }
 
     @Override
     public void deleteSinhVien(String masinhvien) {
@@ -65,6 +68,27 @@ public class SinhVienSercviceImlp implements SinhVienService {
                 .orElseThrow(() -> new NotFoundException("Không tìm thấy sinh vien với mã: " + masinhvien));
 
         sinhVienRepository.delete(sinhVien);
+    }
+//    // sinh vien dat mon
+//    @Override
+//    public List<SinhVien> getSinhVienDaDatMonHoc(String mamonhoc) {
+//        return sinhVienRepository.findSinhVienDaDatMonHoc(mamonhoc);
+//    }
+//    // sinh vien k dat
+//    @Override
+//    public List<SinhVien> getSinhVienChuaDatMonHoc(String mamonhoc) {
+//        return sinhVienRepository.findSinhVienChuaDatMonHoc(mamonhoc);
+//    }
+
+    @Transactional
+    public SinhVien getSinhVienWithDiem(String masinhvien) {
+        SinhVien sinhVien = sinhVienRepository.findById(masinhvien)
+                .orElseThrow(() -> new RuntimeException("Sinh viên không tồn tại"));
+
+        // Nạp danh sách điểm nếu FetchType.LAZY
+        sinhVien.getDiemList().size(); // Gọi để nạp danh sách điểm
+
+        return sinhVien;
     }
 
 

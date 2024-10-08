@@ -11,5 +11,5 @@ public class TinChiRequest {
     private String matinchi;
     private String thoigianhoc;
     private String mamon;
-    private String masinhvien;
+
 }

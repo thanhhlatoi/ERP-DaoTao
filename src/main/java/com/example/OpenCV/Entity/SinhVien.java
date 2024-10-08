@@ -1,6 +1,7 @@
 package com.example.OpenCV.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,11 +22,9 @@ public class SinhVien {
     @JoinColumn(name = "malop")
     private LopHoc lopHoc;
 
-//    @ManyToOne
-//    @JoinColumn(name = "matinchi")
-//    private DKyTinChi tinchi;
 
-    @OneToMany(mappedBy = "sinhVien", fetch = FetchType.LAZY)
-    @JsonBackReference
+    @OneToMany(mappedBy = "sinhVien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JsonBackReference // Tránh vòng lặp JSON
+    @JsonIgnore
     private List<Diem> diemList;
 }

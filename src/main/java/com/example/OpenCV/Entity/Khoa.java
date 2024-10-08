@@ -1,12 +1,13 @@
 package com.example.OpenCV.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -20,4 +21,11 @@ public class Khoa {
 
     @Column(name = "Tenkhoa")
     private String tenkhoa;
+    @JsonIgnore
+    @OneToMany(mappedBy = "khoa", cascade = CascadeType.ALL)
+    private List<MonHoc> monHocs;
+
+    @JsonManagedReference // Chú thích này cho phép Khoa điều khiển việc serialize ChuyenNganh
+    @OneToMany(mappedBy = "khoa", cascade = CascadeType.REMOVE)
+    private List<ChuyenNganh> chuyenNganhs;
 }

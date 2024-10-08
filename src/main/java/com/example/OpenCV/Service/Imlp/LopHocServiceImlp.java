@@ -31,7 +31,6 @@ public class LopHocServiceImlp implements LopHocService {
         LopHoc lophoc = new LopHoc();
         lophoc.setMalop(request.getMalop());
         lophoc.setSiso(request.getSiso());
-        lophoc.setKyhoc(request.getKyhoc());
 
         ChuyenNganh chuyenNganh = chuyenNganhRepository.findById(request.getManganh())
                 .orElseThrow(() -> new NotFoundException("Không tìm thấy mã nghanh: " + request.getManganh()));
@@ -48,7 +47,7 @@ public class LopHocServiceImlp implements LopHocService {
         lopHoc.setChuyenNganh(chuyenNganh);
 
         lopHoc.setSiso(request.getSiso());
-        lopHoc.setKyhoc(request.getKyhoc());
+
         lopHocRepository.save(lopHoc);
         return lopHoc;
     }

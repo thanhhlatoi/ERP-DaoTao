@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DanhGiaRequest {
-    private String masinhvien;
-    private String mamonhoc;
     private float diemtongket;
     private String diemchu;
     private Boolean danhgia;

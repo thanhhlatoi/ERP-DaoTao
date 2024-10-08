@@ -3,9 +3,12 @@ package com.example.OpenCV.Service.Imlp;
 
 import com.example.OpenCV.Entity.Khoa;
 import com.example.OpenCV.Exception.NotFoundException;
+import com.example.OpenCV.Repository.ChuyenNganhRepository;
 import com.example.OpenCV.Repository.KhoaRepository;
 import com.example.OpenCV.Service.KhoaService;
 import com.example.OpenCV.model.Request.KhoaRequest;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +21,11 @@ import java.util.List;
 public class KhoaServiceImlp implements KhoaService {
     @Autowired
     private KhoaRepository khoaRepository;
+    @Autowired
+    private ChuyenNganhRepository chuyenNganhRepository;
+    @Autowired
+    private EntityManager entityManager;
+
     @Override
     public List<Khoa> findAll() {
         List<Khoa> listKhoa = khoaRepository.findAll(Sort.by("makhoa").descending());
@@ -37,7 +45,7 @@ public class KhoaServiceImlp implements KhoaService {
     @Override
     public Khoa updatekhoa(String makhoa, KhoaRequest request) {
         Khoa khoa = khoaRepository.findById(makhoa).orElseThrow(() -> new NotFoundException("Khong tim thay ma khoa: " + makhoa));
-//        khoa.setTenkhoa(request.getTenkhoa());
+        khoa.setTenkhoa(request.getTenkhoa());
         khoaRepository.save(khoa);
         return khoa;
     }
@@ -55,9 +63,17 @@ public class KhoaServiceImlp implements KhoaService {
     }
 
     @Override
+    @Transactional
     public void deleteKhoa(String makhoa) {
-        Khoa khoa = khoaRepository.findById(makhoa).orElseThrow(() -> new NotFoundException("Not Found Khoa With MaKhoa: " + makhoa));
-        khoaRepository.delete(khoa);
+        Khoa khoa = entityManager.find(Khoa.class, makhoa);
+
+        if (khoa != null) {
+            // Xóa đối tượng Person nếu tìm thấy
+            entityManager.remove(khoa);
+            entityManager.flush();
+        } else {
+            throw new RuntimeException("Person not found with ID: " + makhoa);
+        }
     }
 
     @Override

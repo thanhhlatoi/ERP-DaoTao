@@ -13,7 +13,12 @@ public interface SinhVienService {
 
    SinhVien updateSinhVien(String masinhvien,SinhVienRequest request);
 
-   SinhVien getSinhVienWithDiem(String masinhvien);
+//   SinhVien getSinhVien(String masinhvien);
+    SinhVien getSinhVienWithDiem(String masinhvien);
 
     void deleteSinhVien(String masinhvien);
+//    //sinh vien dat mon
+//    List<SinhVien> getSinhVienDaDatMonHoc(String mamonhoc);
+//    //sinh vien k dat
+//    List<SinhVien> getSinhVienChuaDatMonHoc(String mamonhoc);
 }

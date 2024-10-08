@@ -1,21 +1,16 @@
-package com.example.OpenCV.Entity;
+package com.example.OpenCV.model.Reponse;
 
-import jakarta.persistence.*;
+import com.example.OpenCV.Entity.ChuyenNganh;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "lophoc")
-public class LopHoc {
-    @Id
+public class LopHocReponse {
     private String malop;
     private int siso;
 
-    @ManyToOne
-    @JoinColumn(name = "manganh")
     private ChuyenNganh chuyenNganh;
 }

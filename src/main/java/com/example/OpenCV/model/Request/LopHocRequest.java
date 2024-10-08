@@ -11,6 +11,4 @@ public class LopHocRequest {
     private String malop;
     private String manganh;
     private int siso;
-    private int kyhoc;
-
 }
