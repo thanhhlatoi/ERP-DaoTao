@@ -10,12 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tinchi")
-public class DKyTinChi {
+public class DkyTinChi {
     @Id
     private String matinchi;
-    private String thoigianhoc;
-    @OneToOne
-    @JoinColumn(name = "mamon")
-    private MonHoc monHoc;
-
+    private int kyhoc;
+    @ManyToOne
+    @JoinColumn(name = "malop")
+    private LopHoc lopHoc;
 }

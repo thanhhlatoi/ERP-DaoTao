@@ -1,9 +1,9 @@
 package com.example.OpenCV.Repository;
 
-import com.example.OpenCV.Entity.DKyTinChi;
+import com.example.OpenCV.Entity.GiaoVien;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TinChiRepository extends JpaRepository<DKyTinChi,String> {
+public interface GiaoVienRepository extends JpaRepository<GiaoVien,String> {
 }

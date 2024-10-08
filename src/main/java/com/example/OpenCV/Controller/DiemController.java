@@ -2,13 +2,10 @@ package com.example.OpenCV.Controller;
 
 import com.example.OpenCV.Entity.DanhGia;
 import com.example.OpenCV.Entity.Diem;
-import com.example.OpenCV.Entity.Khoa;
 import com.example.OpenCV.Service.DanhGiaService;
 import com.example.OpenCV.Service.DiemService;
-import com.example.OpenCV.Service.KhoaService;
 import com.example.OpenCV.model.Request.DanhGiaRequest;
 import com.example.OpenCV.model.Request.DiemRequest;
-import com.example.OpenCV.model.Request.KhoaRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +26,8 @@ public class DiemController {
         List<Diem> diemList = diemService.findAll();
         return ResponseEntity.ok(diemList);
     }
-    @PostMapping("/create")
 
+    @PostMapping("/create")
     public ResponseEntity<?> createDiem(@Valid @RequestBody DiemRequest request){
         // Lưu đối tượng Diem từ request
         Diem diem = diemService.createDiem(request);
@@ -39,16 +36,23 @@ public class DiemController {
         if (diem != null) {
             // Sau khi lưu Diem, tạo và lưu DanhGia dựa trên Diem
             DanhGiaRequest danhGiaRequest = new DanhGiaRequest();
-
-            // DanhGia sẽ tự động tính toán điểm tổng kết từ Diem trong service
+            // Gán giá trị từ Diem vào DanhGiaRequest nếu cần
+            danhGiaRequest.setIdDiem(diem.getId());  // Ví dụ, nếu bạn muốn liên kết DanhGia với Diem
+            // Tính toán điểm tổng kết và xếp loại nếu cần
             DanhGia danhGia = danhGiaService.createDanhGia(danhGiaRequest);
-
             // Trả về cả Diem và DanhGia nếu cần
             return ResponseEntity.ok(new Object[]{diem, danhGia});
         }
 
         // Nếu có lỗi trong quá trình lưu Diem, trả về thông báo lỗi
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Lưu điểm không thành công");
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Diem> getDiem(@PathVariable long id) {
+        Diem diem = diemService.findById(id);
+        return ResponseEntity.ok(diem);
     }
 
 }

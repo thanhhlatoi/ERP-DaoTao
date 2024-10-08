@@ -4,7 +4,6 @@ import com.example.OpenCV.Entity.*;
 import com.example.OpenCV.Exception.NotFoundException;
 import com.example.OpenCV.Repository.LopHocRepository;
 import com.example.OpenCV.Repository.SinhVienRepository;
-import com.example.OpenCV.Repository.TinChiRepository;
 import com.example.OpenCV.Service.SinhVienService;
 import com.example.OpenCV.model.Request.SinhVienRequest;
 import jakarta.transaction.Transactional;
@@ -17,8 +16,7 @@ import java.util.List;
 public class SinhVienSercviceImlp implements SinhVienService {
     @Autowired
     private SinhVienRepository sinhVienRepository;
-    @Autowired
-    private TinChiRepository tinChiRepository;
+
     @Autowired
     private LopHocRepository lopHocRepository;
     @Override

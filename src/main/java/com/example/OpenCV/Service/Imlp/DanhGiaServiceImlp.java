@@ -3,6 +3,7 @@ package com.example.OpenCV.Service.Imlp;
 import com.example.OpenCV.Entity.*;
 import com.example.OpenCV.Repository.DanhGiaRepository;
 import com.example.OpenCV.Repository.DiemRepository;
+
 import com.example.OpenCV.Repository.MonHocRepository;
 import com.example.OpenCV.Repository.SinhVienRepository;
 import com.example.OpenCV.Service.DanhGiaService;
@@ -21,12 +22,6 @@ public class DanhGiaServiceImlp implements DanhGiaService {
     @Autowired
     private DiemRepository diemRepository;
 
-    @Autowired
-    private SinhVienRepository sinhVienRepository;
-
-    @Autowired
-    private MonHocRepository monHocRepository;
-
     @Override
     public List<DanhGia> findAll() {
         return danhGiaRepository.findAll();  // Lấy tất cả DanhGia từ cơ sở dữ liệu
@@ -34,22 +29,21 @@ public class DanhGiaServiceImlp implements DanhGiaService {
 
     @Override
     public DanhGia createDanhGia(DanhGiaRequest request) {
-
-
-        // Lấy đối tượng Diem tương ứng từ cơ sở dữ liệu
-        Diem diem = new Diem();
-
+        // Lấy Diem từ cơ sở dữ liệu bằng idDiem
+        Diem diem = diemRepository.getDiemById(request.getIdDiem())
+                .orElseThrow(() -> new RuntimeException("Điểm không tồn tại"));
 
         // Tạo đối tượng DanhGia và gán các giá trị từ Diem
         DanhGia danhGia = new DanhGia();
-        danhGia.setDiem(diem);
+        danhGia.setDiem(diem);  // Gán Diem vào DanhGia
 
         // Lấy điểm tổng kết từ đối tượng Diem và gán vào DanhGia
-        danhGia.setDiemtongket(diem.getDiemcc() * 0.1f + diem.getDiemth() * 0.2f + diem.getDiemgk() * 0.3f + diem.getDiemck() * 0.4f);
+        float diemTongKet = diem.getDiemcc() * 0.1f + diem.getDiemth() * 0.2f + diem.getDiemgk() * 0.3f + diem.getDiemck() * 0.4f;
+        danhGia.setDiemtongket(diemTongKet);
 
         // Tính điểm chữ và đánh giá
-        danhGia.setDiemchu(tinhDiemChu(danhGia.getDiemtongket()));
-        danhGia.setDanhgia(xepLoai(danhGia.getDiemtongket()));
+        danhGia.setDiemchu(tinhDiemChu(diemTongKet));
+        danhGia.setDanhgia(XepLoai(diemTongKet));
 
         // Lưu DanhGia vào cơ sở dữ liệu
         return danhGiaRepository.save(danhGia);
@@ -75,7 +69,7 @@ public class DanhGiaServiceImlp implements DanhGiaService {
     }
 
     // Hàm xếp loại dựa trên điểm tổng kết
-    private boolean xepLoai(float diemtongket) {
+    private boolean XepLoai(float diemtongket) {
         return diemtongket >= 4;
     }
 }

@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DanhGiaRequest {
-    private float diemtongket;
-    private String diemchu;
-    private Boolean danhgia;
-    private long idDiem;
+public class UpdateTinChiRequest {
+       private Set<String> monhoc = new HashSet<>();
 }

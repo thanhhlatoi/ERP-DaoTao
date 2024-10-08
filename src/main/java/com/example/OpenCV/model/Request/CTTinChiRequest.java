@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DanhGiaRequest {
-    private float diemtongket;
-    private String diemchu;
-    private Boolean danhgia;
-    private long idDiem;
+public class CTTinChiRequest {
+    private String matinchi;
+//    private String mamon;
+
 }

@@ -10,5 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface DiemRepository  extends JpaRepository<Diem,Long> {
-
+    Optional<Diem> getDiemById(Long id);
 }

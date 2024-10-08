@@ -1,5 +1,7 @@
 package com.example.OpenCV.model.Request;
 
+import com.example.OpenCV.Entity.LopHoc;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TinChiRequest {
+public class DkyTinChiRequest {
     private String matinchi;
-    private String thoigianhoc;
-    private String mamon;
-
+    private int kyhoc;
+    private String malop;
 }

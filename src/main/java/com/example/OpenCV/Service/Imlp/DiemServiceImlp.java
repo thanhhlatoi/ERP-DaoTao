@@ -45,6 +45,10 @@ public class DiemServiceImlp implements DiemService {
         return diem;
     }
 
+    @Override
+    public Diem findById(long id) {
+        return diemRepository.findById(id).orElse(null);
+    }
 
 
 }
